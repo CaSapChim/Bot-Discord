@@ -1,10 +1,9 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { EmbedBuilder} = require('discord.js');
+const Discord = require('discord.js');
 const moment  = require('moment')
 
 
 module.exports = {
-	data: new SlashCommandBuilder()
+	data: new Discord.SlashCommandBuilder()
 		.setName('user')
 		.setDescription('Xem thông tin người dùng.')
 		.addUserOption(option => 
@@ -12,7 +11,12 @@ module.exports = {
 				.setName('tên')
 				.setDescription('nhập tên người mà bạn muốn xem thông tin')
 				.setRequired(true)),
-	async execute(interaction, message) {
+		/**
+		 * 
+		 * @param {Discord.CommandInteraction} interaction 
+		 */
+		
+	async execute(interaction) {
 		const user = interaction.options.getUser('tên');
 
 		let checkbot
@@ -22,7 +26,7 @@ module.exports = {
 			checkbot = ' ❌'
 		}
 
-		const userEmbed = new EmbedBuilder()
+		const userinfoEmbed = new Discord.EmbedBuilder()
 			.setColor('Aqua')
 			.setTitle(`Vài thông tin về ${user.tag}`)
 			.setThumbnail(user.displayAvatarURL(
@@ -41,10 +45,6 @@ module.exports = {
 
 			> **Ngày tham gia discord :** ${user.createdAt.toLocaleString()}
 
-			> **Ngày tham gia server :** ${user.createdTimestamp.toLocaleString()} 
-
-							dadwd: ${user.flags}
-
 			> **Bot :** ${checkbot}	
 
 			
@@ -55,6 +55,6 @@ module.exports = {
 				iconURL: interaction.user.displayAvatarURL(),
 			})
 			.setTimestamp()
-		await interaction.reply({ embeds : [userEmbed] });
+		await interaction.reply({ embeds : [userinfoEmbed] });
 	},
 };
