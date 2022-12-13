@@ -20,32 +20,64 @@ module.exports = {
                 .setDescription('Lý do muốn kick người đó')
                 .setRequired(true)
             )
+        
+        )
+        .addSubcommand((subcommand) => 
+        subcommand
+            .setName('ban')
+            .setDescription('ban một người')
+            .addUserOption(option => 
+            option
+                .setName('tên')
+                .setDescription('Tên người muốn ban')
+                .setRequired(true)
+            )
+            .addStringOption(option => 
+            option
+                .setName('lý_do')
+                .setDescription('Lý do muốn ban người đó')
+                .setRequired(true)
+            )
+        
         ),
         /**
          * 
          * @param {Discord.ChatInputCommandInteraction} interaction
          */
     async execute(interaction) {
-        const {guild , options} = interaction
+        const {guild , options} = interaction;
 
         if (options.getSubcommand() === 'kick' ) {
-            if(!interaction.memberPermissions.has(Discord.PermissionFlagsBits.BanMembers)) return interaction.reply({
+            if(!interaction.memberPermissions.has(Discord.PermissionFlagsBits.KickMembers)) return interaction.reply({
                 content: 'Bạn ko có quyền!'
             })
             const user = interaction.options.getUser('tên');
             const reason = interaction.options.getString('lý_do')
 
-            let tên = interaction.guild.members.cache.get(user.id)
-            tên;
+            let target = interaction.guild.members.cache.get(user.id)
+            target;
 
-            if (tên.bannable) {
-                tên.send('Đã kick!').then(() => {
-                    tên.ban({ reason })
+            if (target.kickable) {
+                target.send({
+                    embeds : [new Discord.EmbedBuilder().setTitle('Kick').setFields(
+                        { name: 'Test' , value: interaction.guild.name},
+                        { name: 'Test' , value: `${reason}` },
+                        { name: 'Test' , value: `${interaction.member}`}
+                    )]
                 }).then(() => {
-                    interaction.reply(`Đã kick thành công ${user.username} | ${user.id}`)
+                    target.kick({ reason })
+                }).then(() => {
+                    interaction.reply({
+                        content: `Đã kick thành công ${user.username} | ${user.id}`,
+                        ephemeral: true
+                    })
+                    
                 })
             } else {
-                interaction.reply('Ko tìm thấy **tên/id** người dùng')
+                interaction.reply({
+                    content: 'Không tìm thấy **tên/id** người dùng',
+                    ephemeral: true
+                })
             }
         }
     }
