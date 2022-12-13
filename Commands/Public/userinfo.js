@@ -13,7 +13,7 @@ module.exports = {
 				.setRequired(true)),
 		/**
 		 * 
-		 * @param {Discord.CommandInteraction} interaction 
+		 * @param {Discord.ChatInputCommandInteraction} interaction 
 		 */
 		
 	async execute(interaction) {
@@ -46,7 +46,7 @@ module.exports = {
 			> **Ngày tham gia discord :** ${user.createdAt.toLocaleString()}
 
 			> **Bot :** ${checkbot}	
-
+				
 			
 
 			`)

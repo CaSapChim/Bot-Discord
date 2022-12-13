@@ -12,7 +12,7 @@ module.exports = {
 
         /**
          * 
-         * @param {Discord.CommandInteraction} interaction 
+         * @param {Discord.ChatInputCommandInteraction} interaction 
          * 
          */
     async execute(interaction) {
