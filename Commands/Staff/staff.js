@@ -49,7 +49,8 @@ module.exports = {
 
         if (options.getSubcommand() === 'kick' ) {
             if(!interaction.memberPermissions.has(Discord.PermissionFlagsBits.KickMembers)) return interaction.reply({
-                content: 'Bạn ko có quyền!'
+                content: 'Bạn ko có quyền!',
+                ephemeral: true
             })
             const user = interaction.options.getUser('tên');
             const reason = interaction.options.getString('lý_do')
@@ -59,23 +60,39 @@ module.exports = {
 
             if (target.kickable) {
                 target.send({
-                    embeds : [new Discord.EmbedBuilder().setTitle('Kick').setFields(
-                        { name: 'Test' , value: interaction.guild.name},
-                        { name: 'Test' , value: `${reason}` },
-                        { name: 'Test' , value: `${interaction.member}`}
-                    )]
+                    embeds : [new Discord.EmbedBuilder()
+                        .setTitle('Kick')
+                        .setDescription(`
+                            > **Server :** ${interaction.guild.name}
+
+                            > **Tên :** ${user.username}
+
+                            > **Id :** ${user.id}
+
+                            > **Lý do :** ${reason}
+                        `)
+                    ]
                 }).then(() => {
                     target.kick({ reason })
                 }).then(() => {
                     interaction.reply({
-                        content: `Đã kick thành công ${user.username} | ${user.id}`,
-                        ephemeral: true
+                        embeds : [new Discord.EmbedBuilder()
+                            .setTitle('**Đã kick thành công !**')
+                            .setDescription(`
+                                > **Server :** ${interaction.guild.name}
+    
+                                > **Tên :** ${user.username}
+    
+                                > **Id :** ${user.id}
+    
+                                > **Lý do :** ${reason}
+                            `)
+                        ]
                     })
-                    
                 })
             } else {
                 interaction.reply({
-                    content: 'Không tìm thấy **tên/id** người dùng',
+                    content: 'Không tìm thấy **tên/id** người dùng!',
                     ephemeral: true
                 })
             }
