@@ -7,13 +7,11 @@ module.exports = {
         /**
          * 
          * @param {Discord.CommandInteraction} interaction
-         * @param {Discord.Message}  message
-         * @param {Discord.Guild} guild
          */
-    async execute(interaction, message) {
+    async execute(interaction) {
         const servericonEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
-            .setTitle(`Icon của server ${message.guild.name}`)
+            .setTitle(`Icon của server ${interaction.guild.icon}`)
             .setFooter({
 				text: `• Yêu cầu bởi ${interaction.user.tag}`,
 				iconURL: interaction.user.displayAvatarURL(),
