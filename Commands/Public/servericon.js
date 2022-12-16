@@ -11,7 +11,12 @@ module.exports = {
     async execute(interaction) {
         const servericonEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
-            .setTitle(`Icon của server ${interaction.guild.icon}`)
+            .setTitle(`Icon của server ${interaction.guild.name}`)
+            .setImage(`${interaction.guild.iconURL({
+                dynamic: true,
+                size: 4096,
+                type: "png"
+            })}`)
             .setFooter({
 				text: `• Yêu cầu bởi ${interaction.user.tag}`,
 				iconURL: interaction.user.displayAvatarURL(),

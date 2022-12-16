@@ -12,7 +12,8 @@ module.exports = {
     async execute(interaction) {
 
         const description = interaction.guild.description;
-        
+        const owner = members.find(member => member.id === message.guild.ownerId);
+
         const serverInfoEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
             .setTitle(`Thông tin về server ${interaction.guild.name}`)
@@ -22,11 +23,11 @@ module.exports = {
 
             > **Mô tả về server:** ${description}
 
-            > **Owner :** ${interaction.guild.ownerId}
+            > **:crown: Owner :** ${owner}
 
-            > **Ngày thành lập: ** ${interaction.guild.createdAt.toLocaleString()}
+            > **:calendar: Ngày thành lập: ** ${interaction.guild.createdAt.toLocaleString()}
 
-			> **Thành viên :** ${interaction.guild.memberCount}
+			> **:busts_in_silhouette: Thành viên :** ${interaction.guild.memberCount}
 
 			> **MFA Level :** ${interaction.guild.mfaLevel}
 
