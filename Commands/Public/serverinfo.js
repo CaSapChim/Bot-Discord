@@ -10,9 +10,7 @@ module.exports = {
          * @param {Discord.ChatInputCommandInteraction} interaction 
          */
     async execute(interaction) {
-
-        const description = interaction.guild.description;
-        const owner = members.find(member => member.id === message.guild.ownerId);
+        const members = interaction.guild.members.cache;
 
         const serverInfoEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
@@ -21,17 +19,23 @@ module.exports = {
             .setDescription(`
             __**CÁC THÔNG TIN:**__
 
-            > **Mô tả về server:** ${description}
+            > **:id: ID server:** ${interaction.guildId}
 
-            > **:crown: Owner :** ${owner}
+            > **:crown: Owner :** <@${interaction.guild.ownerId}>
 
             > **:calendar: Ngày thành lập: ** ${interaction.guild.createdAt.toLocaleString()}
 
 			> **:busts_in_silhouette: Thành viên :** ${interaction.guild.memberCount}
 
+            > **:robot: Bot :** ${members.filter(member => member.user.bot).size}
+
 			> **MFA Level :** ${interaction.guild.mfaLevel}
 
 			> **NSFW Level :** ${interaction.guild.nsfwLevel}
+
+            **Text Channels:** ${channels.filter(channel => channel.type === 'text').size}
+            
+            **Voice Channels:** ${channels.filter(channel => channel.type === 'voice').size}
             
             `)
             .setFooter({
