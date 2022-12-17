@@ -35,7 +35,7 @@ module.exports = {
 
 			> **NSFW Level :** ${interaction.guild.nsfwLevel}
 
-            > **Text Channels:**  ${interaction.guild.roles.highest}
+            > **Text Channels:**  ${channel.filter(channel => channel.type === "text").size}
 
             > **Voice Channels:** ${channel.filter(channel => channel.type === "voice").size}
             
