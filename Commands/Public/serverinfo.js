@@ -8,10 +8,11 @@ module.exports = {
         /**
          * 
          * @param {Discord.ChatInputCommandInteraction} interaction 
+         * 
          */
     async execute(interaction) {
-        const members = interaction.guild.members.cache;
-        const channels = interaction.guild.channels.cache;
+        const channel = interaction.guild.channels.cache
+        const role = interaction.guild.roles.cache
 
         const serverInfoEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
@@ -28,15 +29,15 @@ module.exports = {
 
 			> **:busts_in_silhouette: Thành viên :** ${interaction.guild.memberCount}
 
-            > **:robot: Bot :** ${members.filter(member => member.user.bot).size}
+            > **:robot: Bot :** 
 
 			> **MFA Level :** ${interaction.guild.mfaLevel}
 
 			> **NSFW Level :** ${interaction.guild.nsfwLevel}
 
-            > **Text Channels:** ${channels.filter(channel => channel.type === 'text').size}
+            > **Text Channels:**  ${interaction.guild.roles.highest}
 
-            > **Voice Channels:** ${channels.filter(channel => channel.type === 'voice').size}
+            > **Voice Channels:** ${channel.filter(channel => channel.type === "voice").size}
             
             `)
             .setFooter({

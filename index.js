@@ -21,3 +21,11 @@ client.login(client.config.TOKEN).then(() => {
 	loadCommands(client)
 })
 .catch(err => console.log(err))
+
+let guild = client.guilds.cache.get('')
+
+client.on('guildMemberAdd', member => {
+	client.channels.cache.get('').setName(`:emoji: Tổng - ${member.guild.memberCount}`)
+	client.channels.cache.get('').setName(`:emoji: Tổng thành viên - ${member.guild.members.cache.filter(member => !member.user.bot).size}`)
+	client.channels.cache.get('').setName(`:robot: Bot - ${member.guild.members.cache.filter(member => member.user.bot).size}`)
+})
