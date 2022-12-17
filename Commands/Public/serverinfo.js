@@ -11,6 +11,7 @@ module.exports = {
          */
     async execute(interaction) {
         const members = interaction.guild.members.cache;
+        const channels = interaction.guild.channels.cache;
 
         const serverInfoEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
@@ -33,9 +34,9 @@ module.exports = {
 
 			> **NSFW Level :** ${interaction.guild.nsfwLevel}
 
-            **Text Channels:** ${channels.filter(channel => channel.type === 'text').size}
-            
-            **Voice Channels:** ${channels.filter(channel => channel.type === 'voice').size}
+            > **Text Channels:** ${channels.filter(channel => channel.type === 'text').size}
+
+            > **Voice Channels:** ${channels.filter(channel => channel.type === 'voice').size}
             
             `)
             .setFooter({
