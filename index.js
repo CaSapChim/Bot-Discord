@@ -21,19 +21,3 @@ client.login(client.config.TOKEN).then(() => {
 	loadCommands(client)
 })
 .catch(err => console.log(err))
-
-
-
-
-
-client.on('guildMemberAdd', member => {
-	client.channels.cache.get('1053701127041990796').setName(`:emoji: Tổng - ${member.guild.memberCount}`)
-	client.channels.cache.get('1053701142309261314').setName(`:emoji: Thành viên - ${member.guild.members.cache.filter(member => !member.user.bot).size}`)
-	client.channels.cache.get('1053701155378700388').setName(`:robot: Bot - ${member.guild.members.cache.filter(member => member.user.bot).size}`)
-})
-
-client.on('guildMemberRemove', member => {
-	client.channels.cache.get('1053701127041990796').setName(`:emoji: Tổng - ${member.guild.memberCount}`)
-	client.channels.cache.get('1053701142309261314').setName(`:emoji: Thành viên - ${member.guild.members.cache.filter(member => !member.user.bot).size}`)
-	client.channels.cache.get('1053701155378700388').setName(`:robot: Bot - ${member.guild.members.cache.filter(member => member.user.bot).size}`)
-})
