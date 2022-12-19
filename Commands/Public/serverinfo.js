@@ -11,8 +11,8 @@ module.exports = {
          * 
          */
     async execute(interaction) {
-        const channel = interaction.guild.channels.cache
-        const role = interaction.guild.roles.cache
+        const channel = guild.channels.cache
+
 
         const serverInfoEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
@@ -20,6 +20,8 @@ module.exports = {
             .setThumbnail(interaction.guild.iconURL())
             .setDescription(`
             __**CÁC THÔNG TIN:**__
+
+            > **🌍 Khu vực :** ${interaction.guildLocale}
 
             > **:id: ID server:** ${interaction.guildId}
 
@@ -29,17 +31,18 @@ module.exports = {
 
 			> **:busts_in_silhouette: Thành viên :** ${interaction.guild.memberCount}
 
-            > **:robot: Bot :** 
+            > **:closed_lock_with_key: Role cao nhất: ** ${interaction.guild.roles.highest}
 
-			> **MFA Level :** ${interaction.guild.mfaLevel}
+            > **💬 Text Channels :**  ${channel.filter(c => c.type = "GUILD_TEXT").size}
 
-			> **NSFW Level :** ${interaction.guild.nsfwLevel}
+            > **🔊 Voice Channels :** ${channel.filter(c => c.type = "GUILD_VOICE").size}
 
-            > **Text Channels:**  ${channel.filter(channel => channel.type === "text").size}
+            > **🔞 NSFW Level :** ${interaction.guild.nsfwLevel}
 
-            > **Voice Channels:** ${channel.filter(channel => channel.type === "voice").size}
-            
+            > **🛡️ MFA Level :** ${interaction.guild.mfaLevel}
+
             `)
+    
             .setFooter({
 				text: `• Yêu cầu bởi ${interaction.user.tag}`,
 				iconURL: interaction.user.displayAvatarURL(),
