@@ -11,8 +11,12 @@ module.exports = {
          * 
          */
     async execute(interaction) {
-        const channel = guild.channels.cache
 
+        if(!interaction.guild.description) {
+            description = 'Ko có mô tả gì về server này!'
+        } else {
+            description = interaction.guild.description
+        }
 
         const serverInfoEmbed = new Discord.EmbedBuilder()
             .setColor('Aqua')
@@ -20,6 +24,8 @@ module.exports = {
             .setThumbnail(interaction.guild.iconURL())
             .setDescription(`
             __**CÁC THÔNG TIN:**__
+
+            > **:bookmark_tabs:  Mô tả :** ${description}
 
             > **🌍 Khu vực :** ${interaction.guildLocale}
 
@@ -31,11 +37,7 @@ module.exports = {
 
 			> **:busts_in_silhouette: Thành viên :** ${interaction.guild.memberCount}
 
-            > **:closed_lock_with_key: Role cao nhất: ** ${interaction.guild.roles.highest}
-
-            > **💬 Text Channels :**  ${channel.filter(c => c.type = "GUILD_TEXT").size}
-
-            > **🔊 Voice Channels :** ${channel.filter(c => c.type = "GUILD_VOICE").size}
+            > **:closed_lock_with_key: Role cao nhất: ** ${interaction.guild.roles.highest} 
 
             > **🔞 NSFW Level :** ${interaction.guild.nsfwLevel}
 
